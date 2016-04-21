@@ -24,7 +24,13 @@ class HomePage {
     }
 
     LogInPage logInClick() {
+        try{
         driver.findElement(By.xpath("//a[contains(text(),'Register/Login')]")).click();
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+        }
         return new LogInPage(driver);
     }
     

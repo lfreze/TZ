@@ -23,14 +23,27 @@ class MainPage extends HomePage{
     }
     
     int getValue() {
+        try{
         (new WebDriverWait(driver, 5000)).until(ExpectedConditions.presenceOfElementLocated
         (By.id("counter_value")));
        String res =  driver.findElement(By.id("counter_value")).getText();
        return Integer.parseInt(res);
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+            return 0;
+        }
     }
 
     void clickIncrement() {
+        try{
         driver.findElement(By.xpath("//button[contains(text(),'Increment')]")).click();
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+        }
     }
 
     int getLengthList() {
@@ -47,9 +60,16 @@ class MainPage extends HomePage{
     }
 
     void clickAdd() {
+        try
+        {
         (new WebDriverWait(driver, 5000)).until(ExpectedConditions.presenceOfElementLocated
         (By.xpath("//button[contains(text(),'Add')]")));
         driver.findElement(By.xpath("//button[contains(text(),'Add')]")).click();
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+        }
     }
 
     boolean isMessagePresent(String message) {
@@ -67,12 +87,19 @@ class MainPage extends HomePage{
     }
 
     void addItem(String text) {
+        try{
       (new WebDriverWait(driver, 5000)).until(ExpectedConditions.presenceOfElementLocated(By.id("title")));  
       driver.findElement(By.id("title")).clear();
       driver.findElement(By.id("title")).sendKeys(text);
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+        }
     }
 
     boolean isItemPresent(String itemText) {
+        try{
         boolean res = false;
         for(int i=1; i<=getLengthList();i++)
         {
@@ -80,13 +107,25 @@ class MainPage extends HomePage{
                 res = true;
         }
         return res;
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+            return false;
+        }
             
     }
 
     void deleteItem(String itemText) {
+        try{
         (new WebDriverWait(driver, 5000)).until(ExpectedConditions.presenceOfElementLocated
         (By.xpath("//div[@class='col-md-6']/ol/li[contains(text(),'"+itemText+"')]/a")));  
         driver.findElement(By.xpath("//div[@class='col-md-6']/ol/li[contains(text(),'"+itemText+"')]/a")).click();
-    }
+        }
+        catch(org.openqa.selenium.NoSuchElementException Ex)
+        {
+            System.out.println(Ex); 
+        }
+        }
     
 }
